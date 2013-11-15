@@ -36,9 +36,8 @@ object TasksController extends Controller {
   def newTask() = Action {
     database withSession {
       val q = Query(Users).list
-      val x = for (c <- q) yield c._1.toString
-      val y = for (c <- q) yield c._2
-      Ok(views.html.tasks.newTask(taskForm, (x zip y).toMap))
+      val x = (for (c <- q) yield (c._1.toString -> c._2)).toMap
+      Ok(views.html.tasks.newTask(taskForm, x))
     }
   }
 
