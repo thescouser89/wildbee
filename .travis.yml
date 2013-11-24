@@ -5,8 +5,10 @@ scala:
 env:
   - PLAY_VERSION=2.2.1
 before_script:
-  - wget http://downloads.typesafe.com/play/${PLAY_VERSION}/play-${PLAY_VERSION}.zip
-  - unzip -q play-${PLAY_VERSION}.zip
+    - psql -c "create user wildbee with password '1234';" -U postgres
+    - psql -c "alter user wildbee createdb;"
+    - psql -c "create database wildbeehive;" -U wildbee
+
 script: sbt test
 
 email:
