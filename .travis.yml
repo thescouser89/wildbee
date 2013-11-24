@@ -5,9 +5,8 @@ scala:
 env:
   - PLAY_VERSION=2.2.1
 before_script:
-    - psql -c "create user wildbee with password '1234';" -U postgres
-    - psql -c "alter user wildbee createdb;"
-    - psql -c "create database wildbeehive;" -U wildbee
+    - sed -i "s;^db.default.user.*;db.default.user=\"postgres\";g" conf/application.conf
+    - psql -c "create database wildbeehive;" -U postgres
 
 script: sbt test
 
